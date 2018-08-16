@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itmuch.cloud.study.dao.UserDao" >
+    <sql id="BASE_TABLE">
+        user
+    </sql>
+
+    <sql id="BASE_COLUMN">
+        id,username,name,age,balance
+    </sql>
+
+    <update id="updateUserInfo" parameterType="com.itmuch.cloud.study.model.MovieUser">
+        UPDATE
+        <include refid="BASE_TABLE"/>
+        <set>
+            <if test="name != null">
+                name = #{name, jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                screenName = #{age, jdbcType=INTEGER},
+            </if>
+        </set>
+        WHERE id = #{id, jdbcType=INTEGER}
+    </update>
+
+    <select id="getUserInfoById" resultType="com.itmuch.cloud.study.model.MovieUser">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        WHERE
+        id = #{id, jdbcType=INTEGER}
+    </select>
+
+
+
+</mapper>

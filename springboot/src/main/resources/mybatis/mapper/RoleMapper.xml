@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.haige.dwl.springboot.mybatis.dao.RoleDao" >
+    <sql id="BASE_TABLE">
+        role
+    </sql>
+
+    <sql id="BASE_COLUMN">
+        rid,rname
+    </sql>
+
+
+
+    <select id="get_role_by_id" resultMap="getrole">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        WHERE
+        rid = #{roleid, jdbcType=INTEGER}
+    </select>
+
+    <resultMap id="getrole" type="net.haige.dwl.springboot.mybatis.model.Role">
+        <result property="roleid" column="rid"/>
+        <result property="rolename" column="rname"/>
+    </resultMap>
+
+</mapper>

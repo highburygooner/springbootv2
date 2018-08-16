@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.haige.dwl.springboot.mybatis.dao.UserRoleDao" >
+
+
+    <select id="get_role_by_id" parameterType="string" resultMap="getuserrole">
+        SELECT
+            u.*,r.* from userLogin u,role r,user_role ur where ur.uid=u.uid and ur.rid=r.rid and u.uname=#{username, jdbcType=VARCHAR}
+    </select>
+
+    <resultMap id="getuserrole" type="net.haige.dwl.springboot.mybatis.model.UserRole">
+        <association property="user" javaType="net.haige.dwl.springboot.mybatis.model.User">
+            <id property="userid" column="uid"></id>
+            <result property="username" column="uname"></result>
+            <result property="password" column="password"></result>
+        </association>
+        <association property="role" javaType="net.haige.dwl.springboot.mybatis.model.Role">
+            <id property="roleid" column="rid"></id>
+            <result property="rolename" column="rname"></result>
+        </association>
+    </resultMap>
+
+</mapper>

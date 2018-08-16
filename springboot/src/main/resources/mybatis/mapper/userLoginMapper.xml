@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.haige.dwl.springboot.mybatis.dao.UserLoginDao" >
+    <sql id="BASE_TABLE">
+        userLogin
+    </sql>
+
+    <sql id="BASE_COLUMN">
+        uid,uname,password
+    </sql>
+
+    <update id="updateUserInfo" parameterType="net.haige.dwl.springboot.mybatis.model.User">
+        UPDATE
+        <include refid="BASE_TABLE"/>
+        <set>
+            <if test="password != null">
+                password = #{password, jdbcType=VARCHAR},
+            </if>
+        </set>
+        WHERE uname = #{username, jdbcType=VARCHAR}
+    </update>
+
+    <select id="get_user_by_name" resultMap="getuser">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        WHERE
+        uname = #{username, jdbcType=VARCHAR}
+    </select>
+
+    <resultMap id="getuser" type="net.haige.dwl.springboot.mybatis.model.User">
+        <result property="userid" column="uid"/>
+        <result property="username" column="uname"/>
+        <result property="password" column="password"/>
+    </resultMap>
+
+</mapper>
